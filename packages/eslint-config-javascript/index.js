@@ -1,22 +1,19 @@
 module.exports = {
+    extends: [
+        './rules/best-practices',
+        './rules/errors',
+        './rules/node',
+        './rules/style',
+        './rules/variables',
+        './rules/es6',
+        './rules/imports',
+        './rules/strict',
+    ].map(require.resolve),
+    parserOptions: {
+        ecmaVersion: 2018,
+        sourceType: 'module',
+    },
     rules: {
-        /*
-            Overrides to airbnb rules:
-            https://github.com/airbnb/javascript/blob/main/packages/eslint-config-airbnb-base/index.js
-        */
-
-        /*
-            Developers should consider readability, and no braces may be preferred when unnecessary. However, this rule
-            is disabled, because it enforces no braces to an extent that developers must construct unintuitive formats
-            that are reasonably satisfied with braces.
-        */
-        'arrow-body-style': 'off',
-
-        /*
-            Omit arrow function parenthesis where they are not required to improve readability.
-        */
-        'arrow-parens': ['error', 'as-needed'],
-
         /*
             Use the "one true brace style" in which in which the opening brace of a block is placed
             on the same line as its corresponding statement or declaration (this matches Airbnb).
