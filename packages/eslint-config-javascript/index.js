@@ -1,7 +1,4 @@
 module.exports = {
-    extends: [
-        'airbnb-base'
-    ],
     rules: {
         /*
             Overrides to airbnb rules:
