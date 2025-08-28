@@ -4,6 +4,11 @@ module.exports = {
     ],
     rules: {
         /*
+            Overrides to airbnb rules:
+            https://github.com/airbnb/javascript/blob/main/packages/eslint-config-airbnb-base/index.js
+        */
+
+        /*
             Developers should consider readability, and no braces may be preferred when unnecessary. However, this rule
             is disabled, because it enforces no braces to an extent that developers must construct unintuitive formats
             that are reasonably satisfied with braces.
