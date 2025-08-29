@@ -135,8 +135,12 @@ module.exports = {
         // https://github.com/import-js/eslint-plugin-import/blob/master/docs/rules/no-namespace.md
         'import/no-namespace': 'off',
 
-        // Enforce no file extensions in imports (except packages)
-        // https://github.com/import-js/eslint-plugin-import/blob/master/docs/rules/extensions.md
+        /*
+            There may be exceptions where it is appropriate to disable this rule for projects that
+            require ES6 compliant module imports. It is understood that the compliance standards
+            may change and that this rule may need to be reevaluated.
+            https://github.com/import-js/eslint-plugin-import/blob/master/docs/rules/extensions.md
+        */
         'import/extensions': ['error', 'ignorePackages', {
             js: 'never',
             mjs: 'never',
@@ -154,8 +158,15 @@ module.exports = {
         // https://github.com/import-js/eslint-plugin-import/blob/master/docs/rules/newline-after-import.md
         'import/newline-after-import': 'error',
 
-        // Default exports found counterintuitive; prefer named exports (see no-default-export)
-        // https://github.com/import-js/eslint-plugin-import/blob/master/docs/rules/prefer-default-export.md
+        /*
+            The primary argument for default exports, promoting single export files, was not experienced in practice.
+            Developers were not compelled to exercise this practice, and instead, found defining a default when there is only
+            one export to be counterintuitive. While defining a class per file is recommended, multiple exports are not
+            disallowed. It was also found that another benefit, renaming an export doesn't affect imports, is usually
+            irrelevant, because the import and export names are preferred to be the same. See no-default-export for more
+            information.
+            https://github.com/import-js/eslint-plugin-import/blob/master/docs/rules/prefer-default-export.md
+        */
         'import/prefer-default-export': 'off',
 
         // Restrict which files can be imported in a given folder
@@ -222,8 +233,12 @@ module.exports = {
         // https://github.com/import-js/eslint-plugin-import/blob/44a038c06487964394b1e15b64f3bd34e5d40cde/docs/rules/group-exports.md
         'import/group-exports': 'off',
 
-        // Prefer named exports over default for consistency and easier refactoring
-        // https://github.com/import-js/eslint-plugin-import/blob/44a038c06487964394b1e15b64f3bd34e5d40cde/docs/rules/no-default-export.md
+        /*
+            With prefer-default-export disabled, disallow default exports and prefer named exports to enforce consistency,
+            consistent names, require more explicit renaming, and reduce the effort spent refactoring. Multi-export files are
+            expected, and a trend to prefer named imports was seen in practice.
+            https://github.com/import-js/eslint-plugin-import/blob/44a038c06487964394b1e15b64f3bd34e5d40cde/docs/rules/no-default-export.md
+        */
         'import/no-default-export': 'error',
 
         // Prohibit named exports. this is a terrible rule, do not use it.
@@ -238,8 +253,11 @@ module.exports = {
         // https://github.com/import-js/eslint-plugin-import/blob/d81f48a2506182738409805f5272eff4d77c9348/docs/rules/no-cycle.md
         'import/no-cycle': ['error', { maxDepth: '∞' }],
 
-        // Enforce shorter, consistent paths; avoid redundant segments and index files.
-        // https://github.com/import-js/eslint-plugin-import/blob/ebafcbf59ec9f653b2ac2a0156ca3bcba0a7cf57/docs/rules/no-useless-path-segments.md
+        /*
+            Keep path names short and consistent by avoiding unnecessary relative path segments and consistently
+            avoiding usage of index files when possible.
+             https://github.com/import-js/eslint-plugin-import/blob/ebafcbf59ec9f653b2ac2a0156ca3bcba0a7cf57/docs/rules/no-useless-path-segments.md
+        */
         'import/no-useless-path-segments': [
             'error',
             {
@@ -268,12 +286,16 @@ module.exports = {
             unusedExports: true,
         }],
 
-        // This prevents files from mixing CommonJS exports with ES module imports.
-        // https://github.com/import-js/eslint-plugin-import/blob/1012eb951767279ce3b540a4ec4f29236104bb5b/docs/rules/no-import-module-exports.md
+        /*
+            This prevents files from mixing CommonJS exports with ES module imports
+            https://github.com/import-js/eslint-plugin-import/blob/1012eb951767279ce3b540a4ec4f29236104bb5b/docs/rules/no-import-module-exports.md
+        */
         'import/no-import-module-exports': 'error',
 
-        // Use this rule to prevent importing packages through relative paths.
-        // https://github.com/import-js/eslint-plugin-import/blob/1012eb951767279ce3b540a4ec4f29236104bb5b/docs/rules/no-relative-packages.md
+        /*
+            This prevents imports of packages via a relative path. Packages should always be imported with their scoped name.
+            https://github.com/import-js/eslint-plugin-import/blob/1012eb951767279ce3b540a4ec4f29236104bb5b/docs/rules/no-relative-packages.md
+        */
         'import/no-relative-packages': 'error',
 
         // enforce a consistent style for type specifiers (inline or top-level)

@@ -17,7 +17,10 @@ module.exports = {
         // https://eslint.org/docs/rules/block-spacing
         'block-spacing': ['error', 'always'],
 
-        // enforce one false brace style
+        /*
+            Enforce "one true brace style" (opening brace on same line).
+            Require block body on a new line.
+        */
         'brace-style': ['error', '1tbs', { allowSingleLine: false }],
 
         // require camel case names
@@ -70,10 +73,16 @@ module.exports = {
         // enforces consistent naming when capturing the current execution context
         'consistent-this': 'off',
 
-        // Newline at EOF not required
+        /*
+            Disabled to avoid enforcing a newline at EOF; the minor benefits (UNIX tools, concatenation)
+            don’t outweigh the effort required.
+        */
         'eol-last': 'off',
 
-        // https://eslint.org/docs/rules/function-call-argument-newline
+        /*
+            This enforces that function call args should either all be on one line or each be on separate lines.
+            https://eslint.org/docs/rules/function-call-argument-newline
+        */
         'function-call-argument-newline': ['error', 'consistent'],
 
         // enforce spacing between functions and their invocations
@@ -88,8 +97,11 @@ module.exports = {
             considerPropertyDescriptor: true,
         }],
 
-        // Allow unnamed functions, except legacy IIFEs
-        // https://eslint.org/docs/rules/func-names
+        /*
+            There may be exceptions where it is appropriate to disable this rule for older projects
+            that make use of Immediately Invoked Function Expressions (IIFE).
+            https://eslint.org/docs/rules/func-names
+        */
         'func-names': ['error', 'as-needed'],
 
         // enforces use of function declarations or expressions
@@ -97,8 +109,11 @@ module.exports = {
         // TODO: enable
         'func-style': ['off', 'expression'],
 
-        // require line breaks inside function parentheses if there are line breaks between parameters
-        // https://eslint.org/docs/rules/function-paren-newline
+        /*
+            This enforces consistent line breaks inside function parentheses. Requires either all or none of the
+            arguments to have a newline between them (with newlines permitted around a single argument)
+            https://eslint.org/docs/rules/function-paren-newline
+        */
         'function-paren-newline': ['error', 'multiline-arguments'],
 
         // disallow specified identifiers
@@ -116,7 +131,9 @@ module.exports = {
         // https://eslint.org/docs/rules/implicit-arrow-linebreak
         'implicit-arrow-linebreak': ['error', 'beside'],
 
-        // This indentation size is used to promote consistency.
+        /*
+            This indentation size is used to promote consistency.
+        */
         indent: ['error', 4],
 
         // specify whether double or single quotes should be used in JSX attributes
@@ -146,12 +163,20 @@ module.exports = {
             applyDefaultPatterns: true,
         }],
 
-        // Disabled to avoid Windows dev errors; Git handles line endings
-        // https://eslint.org/docs/rules/linebreak-style
+        /*
+            This rule is disabled to avoid errors while developing on Windows and in favor of using
+            features of the source control to ensure the correct line endings are checked out and
+            committed, e.g. the core.autocrlf git configuration.
+            https://eslint.org/docs/rules/linebreak-style
+
+        */
         'linebreak-style': 'off',
 
-        // Requires empty lines between multiline class members but avoids the empty line for single line members to reduce the amount of vertical space used in a class.
-        // https://eslint.org/docs/rules/lines-between-class-members
+        /*
+            Requires empty lines between multiline class members but avoids the empty line
+            for single line members to reduce the amount of vertical space used in a class.
+            https://eslint.org/docs/rules/lines-between-class-members
+        */
         'lines-between-class-members': ['error', 'always', { exceptAfterSingleLine: true }],
 
         // enforces empty lines around comments
@@ -178,8 +203,8 @@ module.exports = {
             Line length is not enforced, because of developer preference, lack of consistent enforcement,
             and lack of a fixer. Developers should consider readability and may impose a length in their
             own writing without strict enforcement.
+            https://eslint.org/docs/rules/max-len
         */
-        // https://eslint.org/docs/rules/max-len
         'max-len': 'off',
 
         // specify the max number of lines in a file
@@ -254,8 +279,8 @@ module.exports = {
         /*
             `continue` statements can improve readability but care should be taken to avoid confusing control flow.
             They should generally be the only statement within an `if` block and should never use labels.
+            https://eslint.org/docs/rules/no-continue
         */
-        // https://eslint.org/docs/rules/no-continue
         'no-continue': 'off',
 
         // disallow comments inline after code
@@ -265,8 +290,10 @@ module.exports = {
         // https://eslint.org/docs/rules/no-lonely-if
         'no-lonely-if': 'error',
 
-        // Enforce parenthesis in cases of mixed precedence.
-        // https://eslint.org/docs/rules/no-mixed-operators
+        /*
+            Enforce parenthesis in cases of mixed precedence.
+            https://eslint.org/docs/rules/no-mixed-operators
+        */
         'no-mixed-operators': ['error', {
             groups: [
                 ['%', '**'],
@@ -306,8 +333,8 @@ module.exports = {
         /*
             Prefer the '+=' operator. Allow unary operators in for loops, because it is a common
             pattern.
+            https://eslint.org/docs/rules/no-plusplus
          */
-        // https://eslint.org/docs/rules/no-plusplus
         'no-plusplus': ['error', { allowForLoopAfterthoughts: true }],
 
         /*

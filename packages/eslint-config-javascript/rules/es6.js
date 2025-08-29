@@ -13,15 +13,16 @@ module.exports = {
 
     rules: {
         /*
-            Developers should consider readability, and no braces may be preferred when unnecessary. However, this rule
-            is disabled, because it enforces no braces to an extent that developers must construct unintuitive formats
-            that are reasonably satisfied with braces.
+            Disabled to avoid forcing unintuitive no-brace formats.
+            Braces may be used for readability.
+            https://eslint.org/docs/rules/arrow-body-style
         */
-        // https://eslint.org/docs/rules/arrow-body-style
         'arrow-body-style': 'off',
 
-        //  Omit arrow function parenthesis where they are not required to improve readability.
-        // https://eslint.org/docs/rules/arrow-parens
+        /*
+            Omit arrow function parenthesis where they are not required to improve readability.
+            https://eslint.org/docs/rules/arrow-parens
+        */
         'arrow-parens': ['error', 'as-needed'],
 
         // require space before/after arrow function's arrow
@@ -61,8 +62,10 @@ module.exports = {
         // https://eslint.org/docs/rules/no-new-symbol
         'no-new-symbol': 'error',
 
-        // This rule would ban exports with specific names. Projects can configure it as-needed, but there are no NI-wide restricted exports
-        // https://eslint.org/docs/rules/no-restricted-exports
+        /*
+            This rule would ban exports with specific names. Projects can configure it as-needed, but there are no NI-wide restricted exports
+            https://eslint.org/docs/rules/no-restricted-exports
+        */
         'no-restricted-exports': 'off',
 
         // disallow specific imports

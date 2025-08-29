@@ -12,8 +12,12 @@ module.exports = {
         // https://eslint.org/docs/rules/no-async-promise-executor
         'no-async-promise-executor': 'error',
 
-        // Disallow await inside of loops
-        // https://eslint.org/docs/rules/no-await-in-loop
+        /*
+            Errors from this rule will identify issues more often than not. However, there may be
+            unique exceptions, like bad third-party API design, where this rule can be disabled
+            with an inline comment.
+            https://eslint.org/docs/rules/no-await-in-loop
+        */
         'no-await-in-loop': 'error',
 
         // Disallow comparisons to negative zero
@@ -23,7 +27,9 @@ module.exports = {
         // disallow assignment in conditional expressions
         'no-cond-assign': ['error', 'always'],
 
-        // Console logs should not be exposed in production environments.
+        /*
+            Console logs should not be exposed in production environments.
+        */
         'no-console': 'error',
 
         // Disallows expressions where the operation doesn't affect the value
@@ -45,8 +51,11 @@ module.exports = {
         // disallow duplicate arguments in functions
         'no-dupe-args': 'error',
 
-        // Disallow duplicate conditions in if-else-if chains
-        // https://eslint.org/docs/rules/no-dupe-else-if
+        /*
+            Disallow duplicate conditions in if-else-if chain.
+            This rule does not need to be explicitly set after enabled in airbnb:
+            https://eslint.org/docs/rules/no-dupe-else-if
+        */
         'no-dupe-else-if': 'error',
 
         // disallow duplicate keys when creating object literals
@@ -84,7 +93,11 @@ module.exports = {
         // disallow overwriting functions written as function declarations
         'no-func-assign': 'error',
 
-        // https://eslint.org/docs/rules/no-import-assign
+        /*
+            Disallow assigning to imported bindings.
+            This rule does not need to be explicitly set after enabled in airbnb:
+            https://eslint.org/docs/rules/no-import-assign
+        */
         'no-import-assign': 'error',
 
         // disallow function or variable declarations in nested blocks
@@ -112,19 +125,27 @@ module.exports = {
         // TODO: semver-major, enable
         'no-new-native-nonconstructor': 'off',
 
-        // Disallow returning values from Promise executor functions
-        // https://eslint.org/docs/rules/no-promise-executor-return
+        /*
+            This enforces that the function you pass to new Promise() should not return a value (it should call reject/resolve instead).
+            https://eslint.org/docs/rules/no-promise-executor-return
+        */
         'no-promise-executor-return': 'error',
 
-        // disallow use of Object.prototypes builtins directly
-        // https://eslint.org/docs/rules/no-prototype-builtins
+        /*
+            This rule defends against prototype pollution vulnerabilities that are exploitable with
+            XSS.
+            https://eslint.org/docs/rules/no-prototype-builtins
+        */
         'no-prototype-builtins': 'error',
 
         // disallow multiple spaces in a regular expression literal
         'no-regex-spaces': 'error',
 
-        // Disallow returning values from setters
-        // https://eslint.org/docs/rules/no-setter-return
+        /*
+            Disallow returning values from setters.
+            This rule does not need to be explicitly set after enabled in airbnb:
+            https://eslint.org/docs/rules/no-setter-return
+        */
         'no-setter-return': 'error',
 
         // disallow sparse arrays

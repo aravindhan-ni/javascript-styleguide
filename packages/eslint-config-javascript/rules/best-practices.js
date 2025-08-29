@@ -16,24 +16,40 @@ module.exports = {
         // https://eslint.org/docs/rules/complexity
         complexity: ['off', 20],
 
-        // Allow instance methods even if `this` isn’t used
-        // https://eslint.org/docs/rules/class-methods-use-this
+        /*
+            The presence of `this` does not always determine whether a method should be static.
+            Some classes must conform to an interface or be called on an instance.
+            Static methods are only appropriate when functionality is independent of instances.
+            https://eslint.org/docs/rules/class-methods-use-this
+        */
         'class-methods-use-this': 'off',
 
         // require return statements to either always or never specify values
         // https://eslint.org/docs/rules/consistent-return
         'consistent-return': 'error',
 
-        // Require curly braces {} for all blocks (e.g. if, else, while).
-        // https://eslint.org/docs/rules/curly
+        /*
+            Require curly braces {} for all blocks (e.g. if, else, while).
+            https://eslint.org/docs/rules/curly
+        */
         curly: ['error', 'all'],
 
         // require default case in switch statements
         // https://eslint.org/docs/rules/default-case
         'default-case': ['error', { commentPattern: '^no default$' }],
 
-        // Enforce default clauses in switch statements to be last
-        // https://eslint.org/docs/rules/default-case-last
+        /*
+            'default-case' Airbnb rule configuration notes:
+            Always provide a `default` case in `switch` statements.
+            If the default case is logically unreachable, throw an Error.
+            If the default case should do nothing, add a comment explaining why
+            to indicate that it is an intentional decision.
+        */
+
+        /*
+            Enforces that the default case of a switch statement should be listed last, matching common practice.
+            https://eslint.org/docs/rules/default-case-last
+        */
         'default-case-last': 'error',
 
         // https://eslint.org/docs/rules/default-param-last
@@ -51,23 +67,30 @@ module.exports = {
         // https://eslint.org/docs/rules/eqeqeq
         eqeqeq: ['error', 'always', { null: 'ignore' }],
 
-        // Require grouped accessor pairs in object literals and classes
-        // https://eslint.org/docs/rules/grouped-accessor-pairs
+        /*
+            This enforces that the get and set methods of an accessor be defined next to each other.\
+            https://eslint.org/docs/rules/grouped-accessor-pairs
+        */
         'grouped-accessor-pairs': 'error',
 
         // make sure for-in loops have an if statement
         // https://eslint.org/docs/rules/guard-for-in
         'guard-for-in': 'error',
 
-        // enforce a maximum number of classes per file
-        // https://eslint.org/docs/rules/max-classes-per-file
+        /*
+            Including one class per file is a best practice in general and also recommended by the
+            Angular style guide. However, migrating older projects may not be trivial, and there
+            may be exceptions for public/internal types that are only used as part of the interface
+            to the main type and no other types.
+            https://eslint.org/docs/rules/max-classes-per-file
+        */
         'max-classes-per-file': ['error', 1],
 
         /*
             JavaScript alert, confirm, and prompt functions should be used for debugging purposes only
             as they are obtrusive and have poor customizability.
+            https://eslint.org/docs/rules/no-alert
         */
-        // https://eslint.org/docs/rules/no-alert
         'no-alert': 'error',
 
         // disallow use of arguments.caller or arguments.callee
@@ -78,8 +101,10 @@ module.exports = {
         // https://eslint.org/docs/rules/no-case-declarations
         'no-case-declarations': 'error',
 
-        // Disallow returning value in constructor
-        // https://eslint.org/docs/rules/no-constructor-return
+        /*
+            Constructors should not typically return a value.
+            https://eslint.org/docs/rules/no-constructor-return
+        */
         'no-constructor-return': 'error',
 
         // disallow division operators explicitly at beginning of regular expression
@@ -178,8 +203,11 @@ module.exports = {
         // https://eslint.org/docs/rules/no-lone-blocks
         'no-lone-blocks': 'error',
 
-        // disallow creation of functions within loops
-        // https://eslint.org/docs/rules/no-loop-func
+        /*
+            There may be exceptions, like array iterators, where it is appropriate to disable this
+            rule with an inline comment.
+            https://eslint.org/docs/rules/no-loop-func
+        */
         'no-loop-func': 'error',
 
         // disallow magic numbers
@@ -213,8 +241,10 @@ module.exports = {
         // https://eslint.org/docs/rules/no-new-wrappers
         'no-new-wrappers': 'error',
 
-        // Disallow \8 and \9 escape sequences in string literals
-        // https://eslint.org/docs/rules/no-nonoctal-decimal-escape
+        /*
+            This disallows \8 and \9 escape sequences in string literals, which fixes an ambiguity in browser behavior.
+            https://eslint.org/docs/rules/no-nonoctal-decimal-escape
+        */
         'no-nonoctal-decimal-escape': 'error',
 
         // Disallow calls to the Object constructor without an argument
@@ -397,9 +427,11 @@ module.exports = {
         // https://eslint.org/docs/rules/radix
         radix: 'error',
 
-        // require `await` in `async function` (note: this is a horrible rule that should never be used)
-        // https://eslint.org/docs/rules/require-await
-        'require-await': 'off',
+        /*
+            Asynchronous functions that don’t use await might not need to be asynchronous functions and could be the unintentional result of refactoring.
+            https://eslint.org/docs/rules/require-await
+        */
+        'require-await': 'error',
 
         // Enforce the use of u flag on RegExp
         // https://eslint.org/docs/rules/require-unicode-regexp
