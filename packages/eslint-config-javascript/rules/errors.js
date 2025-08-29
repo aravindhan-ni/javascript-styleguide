@@ -23,16 +23,18 @@ module.exports = {
         // disallow assignment in conditional expressions
         'no-cond-assign': ['error', 'always'],
 
-        // disallow use of console
-        'no-console': 'warn',
+        // Console logs should not be exposed in production environments.
+        'no-console': 'error',
 
         // Disallows expressions where the operation doesn't affect the value
         // https://eslint.org/docs/rules/no-constant-binary-expression
-        // TODO: semver-major, enable
         'no-constant-binary-expression': 'off',
 
-        // disallow use of constant expressions in conditions
-        'no-constant-condition': 'warn',
+        /*
+            Constant expressions in conditions are likely an error. Cases representing an infinite loop
+            may utilize the construct `for (;;) {}`.
+        */
+        'no-constant-condition': 'error',
 
         // disallow control characters in regular expressions
         'no-control-regex': 'error',
@@ -139,11 +141,10 @@ module.exports = {
         // disallow unreachable statements after a return, throw, continue, or break statement
         'no-unreachable': 'error',
 
-        // Disallow loops with a body that allows only one iteration
-        // https://eslint.org/docs/rules/no-unreachable-loop
-        'no-unreachable-loop': ['error', {
-            ignore: [], // WhileStatement, DoWhileStatement, ForStatement, ForInStatement, ForOfStatement
-        }],
+        /*
+            This rule detects when all code paths within a loop return early, making the loop unneccessary.
+        */
+        'no-unreachable-loop': 'error',
 
         // disallow return/throw/break/continue inside finally blocks
         // https://eslint.org/docs/rules/no-unsafe-finally
@@ -153,8 +154,9 @@ module.exports = {
         // https://eslint.org/docs/rules/no-unsafe-negation
         'no-unsafe-negation': 'error',
 
-        // disallow use of optional chaining in contexts where the undefined value is not allowed
-        // https://eslint.org/docs/rules/no-unsafe-optional-chaining
+        /*
+            This rule helps find cases where the .? optional chaining operator might result in undefined which isn't being handled.
+        */
         'no-unsafe-optional-chaining': ['error', { disallowArithmeticOperators: true }],
 
         // Disallow Unused Private Class Members
@@ -162,8 +164,10 @@ module.exports = {
         // TODO: enable once eslint 7 is dropped (which is semver-major)
         'no-unused-private-class-members': 'off',
 
-        // Disallow useless backreferences in regular expressions
-        // https://eslint.org/docs/rules/no-useless-backreference
+        /*
+            This rule prevents certain useless syntax in regular expressions.
+            https://eslint.org/docs/rules/no-useless-backreference
+        */
         'no-useless-backreference': 'error',
 
         // disallow negation of the left operand of an in expression

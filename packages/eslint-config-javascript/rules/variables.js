@@ -1,5 +1,3 @@
-const confusingBrowserGlobals = require('confusing-browser-globals');
-
 module.exports = {
     rules: {
         // enforce or disallow variable initializations at definition
@@ -15,23 +13,20 @@ module.exports = {
         // https://eslint.org/docs/rules/no-label-var
         'no-label-var': 'error',
 
-        // disallow specific globals
-        'no-restricted-globals': [
-            'error',
+        /*
+            The Jasmine 'fdescribe' and 'fit' functions are handy for local development but should
+            not be committed to production.
+        */
+        'no-restricted-globals': ['error',
             {
-                name: 'isFinite',
-                message:
-                    'Use Number.isFinite instead https://github.com/airbnb/javascript#standard-library--isfinite',
+                name: 'fdescribe',
+                message: 'Do not commit fdescribe. Use "describe" instead for tests.'
             },
             {
-                name: 'isNaN',
-                message:
-                    'Use Number.isNaN instead https://github.com/airbnb/javascript#standard-library--isnan',
-            },
-        ].concat(confusingBrowserGlobals.map(g => ({
-            name: g,
-            message: `Use window.${g} instead. https://github.com/facebook/create-react-app/blob/HEAD/packages/confusing-browser-globals/README.md`,
-        }))),
+                name: 'fit',
+                message: 'Do not commit fit. Use "it" instead for tests.'
+            }
+        ],
 
         // disallow declaration of variables already declared in the outer scope
         'no-shadow': 'error',
@@ -50,10 +45,18 @@ module.exports = {
         // TODO: enable?
         'no-undefined': 'off',
 
-        // disallow declaration of variables that are not used in the code
-        'no-unused-vars': ['error', { vars: 'all', args: 'after-used', ignoreRestSiblings: true }],
+        /*
+            Unused variables are not allowed as they're usually an indication of a programming error.
+            In situations where they are required like unused callback function arguments,
+            indicate that the unused variable is intentional by pre-pending its name with `_`.
+        */
+        'no-unused-vars': ['error', { vars: 'all', args: 'all', argsIgnorePattern: '^_', ignoreRestSiblings: true }],
 
-        // disallow use of variables before they are defined
-        'no-use-before-define': ['error', { functions: true, classes: true, variables: true }],
+        /*
+            Defining classes and variables before their use can cause errors. However, placing
+            function declarations at the end of a file is a common programming practice for
+            readability.
+        */
+        'no-use-before-define': ['error', { functions: false, classes: true, variables: true }],
     }
 };

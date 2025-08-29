@@ -116,32 +116,8 @@ module.exports = {
         // https://eslint.org/docs/rules/implicit-arrow-linebreak
         'implicit-arrow-linebreak': ['error', 'beside'],
 
-        // this option sets a specific tab width for your code
-        // https://eslint.org/docs/rules/indent
-        indent: ['error', 2, {
-            SwitchCase: 1,
-            VariableDeclarator: 1,
-            outerIIFEBody: 1,
-            // MemberExpression: null,
-            FunctionDeclaration: {
-                parameters: 1,
-                body: 1
-            },
-            FunctionExpression: {
-                parameters: 1,
-                body: 1
-            },
-            CallExpression: {
-                arguments: 1
-            },
-            ArrayExpression: 1,
-            ObjectExpression: 1,
-            ImportDeclaration: 1,
-            flatTernaryExpressions: false,
-            // list derived from https://github.com/benjamn/ast-types/blob/HEAD/def/jsx.js
-            ignoredNodes: ['JSXElement', 'JSXElement > *', 'JSXAttribute', 'JSXIdentifier', 'JSXNamespacedName', 'JSXMemberExpression', 'JSXSpreadAttribute', 'JSXExpressionContainer', 'JSXOpeningElement', 'JSXClosingElement', 'JSXFragment', 'JSXOpeningFragment', 'JSXClosingFragment', 'JSXText', 'JSXEmptyExpression', 'JSXSpreadChild'],
-            ignoreComments: false
-        }],
+        // This indentation size is used to promote consistency.
+        indent: ['error', 4],
 
         // specify whether double or single quotes should be used in JSX attributes
         // https://eslint.org/docs/rules/jsx-quotes
@@ -170,13 +146,13 @@ module.exports = {
             applyDefaultPatterns: true,
         }],
 
-        // disallow mixed 'LF' and 'CRLF' as linebreaks
+        // Disabled to avoid Windows dev errors; Git handles line endings
         // https://eslint.org/docs/rules/linebreak-style
-        'linebreak-style': ['error', 'unix'],
+        'linebreak-style': 'off',
 
-        // require or disallow an empty line between class members
+        // Requires empty lines between multiline class members but avoids the empty line for single line members to reduce the amount of vertical space used in a class.
         // https://eslint.org/docs/rules/lines-between-class-members
-        'lines-between-class-members': ['error', 'always', { exceptAfterSingleLine: false }],
+        'lines-between-class-members': ['error', 'always', { exceptAfterSingleLine: true }],
 
         // enforces empty lines around comments
         'lines-around-comment': 'off',
@@ -198,15 +174,13 @@ module.exports = {
         // specify the maximum depth that blocks can be nested
         'max-depth': ['off', 4],
 
-        // specify the maximum length of a line in your program
+        /*
+            Line length is not enforced, because of developer preference, lack of consistent enforcement,
+            and lack of a fixer. Developers should consider readability and may impose a length in their
+            own writing without strict enforcement.
+        */
         // https://eslint.org/docs/rules/max-len
-        'max-len': ['error', 100, 2, {
-            ignoreUrls: true,
-            ignoreComments: false,
-            ignoreRegExpLiterals: true,
-            ignoreStrings: true,
-            ignoreTemplateLiterals: true,
-        }],
+        'max-len': 'off',
 
         // specify the max number of lines in a file
         // https://eslint.org/docs/rules/max-lines
@@ -277,9 +251,12 @@ module.exports = {
         // https://eslint.org/docs/rules/no-bitwise
         'no-bitwise': 'error',
 
-        // disallow use of the continue statement
+        /*
+            `continue` statements can improve readability but care should be taken to avoid confusing control flow.
+            They should generally be the only statement within an `if` block and should never use labels.
+        */
         // https://eslint.org/docs/rules/no-continue
-        'no-continue': 'error',
+        'no-continue': 'off',
 
         // disallow comments inline after code
         'no-inline-comments': 'off',
@@ -288,11 +265,9 @@ module.exports = {
         // https://eslint.org/docs/rules/no-lonely-if
         'no-lonely-if': 'error',
 
-        // disallow un-paren'd mixes of different operators
+        // Enforce parenthesis in cases of mixed precedence.
         // https://eslint.org/docs/rules/no-mixed-operators
         'no-mixed-operators': ['error', {
-            // the list of arithmetic groups disallows mixing `%` and `**`
-            // with other arithmetic operators.
             groups: [
                 ['%', '**'],
                 ['%', '+'],
@@ -304,7 +279,7 @@ module.exports = {
                 ['==', '!=', '===', '!=='],
                 ['&&', '||'],
             ],
-            allowSamePrecedence: false
+            allowSamePrecedence: true
         }],
 
         // disallow mixed spaces and tabs for indentation
@@ -328,30 +303,33 @@ module.exports = {
         // disallow use of the Object constructor
         'no-new-object': 'error',
 
-        // disallow use of unary operators, ++ and --
+        /*
+            Prefer the '+=' operator. Allow unary operators in for loops, because it is a common
+            pattern.
+         */
         // https://eslint.org/docs/rules/no-plusplus
-        'no-plusplus': 'error',
+        'no-plusplus': ['error', { allowForLoopAfterthoughts: true }],
 
-        // disallow certain syntax forms
-        // https://eslint.org/docs/rules/no-restricted-syntax
-        'no-restricted-syntax': [
-            'error',
-            {
-                selector: 'ForInStatement',
-                message: 'for..in loops iterate over the entire prototype chain, which is virtually never what you want. Use Object.{keys,values,entries}, and iterate over the resulting array.',
-            },
-            {
-                selector: 'ForOfStatement',
-                message: 'iterators/generators require regenerator-runtime, which is too heavyweight for this guide to allow them. Separately, loops should be avoided in favor of array iterations.',
-            },
+        /*
+            Higher-order function composition, like Array.forEach(), is preferred for iterative
+            loops. For...in statements can be used when performance is a consideration as long as
+            guard-for-in is enabled. For...of statements can be used when break is required for
+            control flow or the iteration produces side-effects.
+        */
+        'no-restricted-syntax': ['error',
             {
                 selector: 'LabeledStatement',
                 message: 'Labels are a form of GOTO; using them makes code confusing and hard to maintain and understand.',
-            },
-            {
+            }, {
+                selector: "UnaryExpression[operator='delete']",
+                message: 'The `delete` operator is not allowed. If using an object keys as a map, use the ES `Map` data structure instead.'
+            }, {
                 selector: 'WithStatement',
                 message: '`with` is disallowed in strict mode because it makes code impossible to predict and optimize.',
-            },
+            }, {
+                selector: 'CallExpression[callee.object.name=\'console\'][callee.property.name=/^(debug|info|time|timeEnd|trace)$/]',
+                message: 'Unexpected property on console object was called'
+            }
         ],
 
         // disallow space between function identifier and application
@@ -370,14 +348,21 @@ module.exports = {
             ignoreComments: false,
         }],
 
-        // disallow dangling underscores in identifiers
-        // https://eslint.org/docs/rules/no-underscore-dangle
-        'no-underscore-dangle': ['error', {
-            allow: [],
-            allowAfterThis: false,
-            allowAfterSuper: false,
-            enforceInMethodNames: true,
-        }],
+        /*
+            Trailing and prefixed underscores in identifiers are discouraged, with the following exceptions:
+
+            1. An underscore prefix is permitted on a parameter name to indicate that the parameter is intentionally unused.
+
+            2. In JavaScript code, an underscore prefix is permitted on a field to indicate when it is for private internal
+            use. This guideline may change if the JavaScript ecosystem provides a native way to specify private fields.
+
+            3. In TypeScript code, an underscore prefix is permitted on a field when it backs a property of the same name.
+            Prefixing other fields to indicate they're private is not necessary.
+
+            Unfortunately this ESLint rule doesn't support the above configuration so the rule is disabled and
+            the policy must be enforced manually by developers and code reviewers.
+         */
+        'no-underscore-dangle': 'off',
 
         // disallow the use of Boolean literals in conditional expressions
         // also, prefer `a || b` over `a ? a : b`
@@ -395,13 +380,16 @@ module.exports = {
         // require padding inside curly braces
         'object-curly-spacing': ['error', 'always'],
 
-        // enforce line breaks between braces
-        // https://eslint.org/docs/rules/object-curly-newline
+        /*
+            Allow single line object expressions and patterns, but ensure a reasonable line length.
+            All expressions, patterns, and declarations should be consistent.
+            https://eslint.org/docs/rules/object-curly-newline
+        */
         'object-curly-newline': ['error', {
-            ObjectExpression: { minProperties: 4, multiline: true, consistent: true },
-            ObjectPattern: { minProperties: 4, multiline: true, consistent: true },
-            ImportDeclaration: { minProperties: 4, multiline: true, consistent: true },
-            ExportDeclaration: { minProperties: 4, multiline: true, consistent: true },
+            ObjectExpression: { minProperties: 6, multiline: true, consistent: true },
+            ObjectPattern: { minProperties: 6, multiline: true, consistent: true },
+            ImportDeclaration: { consistent: true },
+            ExportDeclaration: { consistent: true }
         }],
 
         // enforce "same line" or "multiple line" on object properties.
@@ -438,8 +426,10 @@ module.exports = {
         // https://eslint.org/docs/rules/padding-line-between-statements
         'padding-line-between-statements': 'off',
 
-        // Disallow the use of Math.pow in favor of the ** operator
-        // https://eslint.org/docs/rules/prefer-exponentiation-operator
+        /*
+            For consistency, when we do exponentiation we should prefer the ** operator over the Math.pow() function.
+            https://eslint.org/docs/rules/prefer-exponentiation-operator
+        */
         'prefer-exponentiation-operator': 'error',
 
         // Prefer use of an object spread over Object.assign
@@ -476,8 +466,19 @@ module.exports = {
         // require or disallow space before blocks
         'space-before-blocks': 'error',
 
-        // require or disallow space before function opening parenthesis
-        // https://eslint.org/docs/rules/space-before-function-paren
+        /*
+            Enforcing this rule improves code readability by making its appearance more consistent
+            across codebases. Disabling or changing the value of this rule is discouraged.
+
+            We elect not to include a space before function parentheses except for anonymous
+            functions. There are advocates in the external JavaScript community and within NI for
+            both this configuration and others that include a space. Each of those opinions have
+            valid merits. The primary justification is that the syntax without a space will be more
+            familiar to the many NI web developers with experience in other languages (e.g. C, C++,
+            C#, and Python).
+
+            https://eslint.org/docs/rules/space-before-function-paren
+        */
         'space-before-function-paren': ['error', {
             anonymous: 'always',
             named: 'never',
@@ -499,19 +500,12 @@ module.exports = {
             },
         }],
 
-        // require or disallow a space immediately following the // or /* in a comment
-        // https://eslint.org/docs/rules/spaced-comment
-        'spaced-comment': ['error', 'always', {
-            line: {
-                exceptions: ['-', '+'],
-                markers: ['=', '!', '/'], // space here to support sprockets directives, slash for TS /// comments
-            },
-            block: {
-                exceptions: ['-', '+'],
-                markers: ['=', '!', ':', '::'], // space here to support sprockets directives and flow comment types
-                balanced: true,
-            }
-        }],
+        /*
+            This configuration already supports the JSDoc syntax. Add additional syntax as line or
+            block exceptions or markers when necessary.
+            https://eslint.org/docs/rules/spaced-comment
+        */
+        'spaced-comment': 'error',
 
         // Enforce spacing around colons of switch statements
         // https://eslint.org/docs/rules/switch-colon-spacing

@@ -61,21 +61,22 @@ module.exports = {
         // https://eslint.org/docs/rules/no-new-symbol
         'no-new-symbol': 'error',
 
-        // Disallow specified names in exports
+        // This rule would ban exports with specific names. Projects can configure it as-needed, but there are no NI-wide restricted exports
         // https://eslint.org/docs/rules/no-restricted-exports
-        'no-restricted-exports': ['error', {
-            restrictedNamedExports: [
-                'default', // use `export default` to provide a default export
-                'then', // this will cause tons of confusion when your module is dynamically `import()`ed, and will break in most node ESM versions
-            ],
-        }],
+        'no-restricted-exports': 'off',
 
         // disallow specific imports
         // https://eslint.org/docs/rules/no-restricted-imports
-        'no-restricted-imports': ['off', {
-            paths: [],
-            patterns: []
-        }],
+        'no-restricted-imports': [
+            'error',
+            {
+                paths: [{
+                    // The following is recommended by the @angular-eslint/recommended--extra configuration.
+                    // https://github.com/angular-eslint/angular-eslint/blob/v15.2.1/packages/eslint-plugin/src/configs/recommended--extra.json
+                    name: 'rxjs/Rx',
+                    message: 'Please import directly from \'rxjs\' instead'
+                }]
+            }],
 
         // disallow to use this/super before super() calling in constructors.
         // https://eslint.org/docs/rules/no-this-before-super
@@ -97,15 +98,18 @@ module.exports = {
             ignoreExport: false,
         }],
 
-        // require let or const instead of var
+        /*
+            Migrating from var is not trivial, so there may be exceptions for older projects.
+        */
         'no-var': 'error',
 
-        // require method and property shorthand syntax for object literals
-        // https://eslint.org/docs/rules/object-shorthand
-        'object-shorthand': ['error', 'always', {
-            ignoreConstructors: false,
-            avoidQuotes: true,
-        }],
+        /*
+            Allow object property shorthand, but disallow method shorthand to differentiate objects
+            with functions from classes. However, this rule does not support disallowing method
+            shorthands, so they should be corrected in review.
+            https://eslint.org/docs/rules/object-shorthand
+        */
+        'object-shorthand': ['error', 'properties', { avoidQuotes: true }],
 
         // suggest using arrow functions as callbacks
         'prefer-arrow-callback': ['error', {
@@ -119,20 +123,12 @@ module.exports = {
             ignoreReadBeforeAssign: true,
         }],
 
-        // Prefer destructuring from arrays and objects
-        // https://eslint.org/docs/rules/prefer-destructuring
-        'prefer-destructuring': ['error', {
-            VariableDeclarator: {
-                array: false,
-                object: true,
-            },
-            AssignmentExpression: {
-                array: true,
-                object: false,
-            },
-        }, {
-            enforceForRenamedProperties: false,
-        }],
+        /*
+            Destructuring should be considered for multi-variable declarations and assignments while simple single
+            variable declarations and assignments likely don't require it.
+            https://eslint.org/docs/rules/prefer-destructuring
+        */
+        'prefer-destructuring': 'off',
 
         // disallow parseInt() in favor of binary, octal, and hexadecimal literals
         // https://eslint.org/docs/rules/prefer-numeric-literals

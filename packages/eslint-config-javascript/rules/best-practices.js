@@ -63,10 +63,12 @@ module.exports = {
         // https://eslint.org/docs/rules/max-classes-per-file
         'max-classes-per-file': ['error', 1],
 
-        // disallow the use of alert, confirm, and prompt
+        /*
+            JavaScript alert, confirm, and prompt functions should be used for debugging purposes only
+            as they are obtrusive and have poor customizability.
+        */
         // https://eslint.org/docs/rules/no-alert
-        // TODO: enable, semver-major
-        'no-alert': 'warn',
+        'no-alert': 'error',
 
         // disallow use of arguments.caller or arguments.callee
         // https://eslint.org/docs/rules/no-caller
@@ -229,25 +231,14 @@ module.exports = {
         // https://eslint.org/docs/rules/no-octal-escape
         'no-octal-escape': 'error',
 
-        // disallow reassignment of function parameters
-        // disallow parameter object manipulation except for specific exclusions
-        // rule: https://eslint.org/docs/rules/no-param-reassign.html
-        'no-param-reassign': ['error', {
-            props: true,
-            ignorePropertyModificationsFor: [
-                'acc', // for reduce accumulators
-                'accumulator', // for reduce accumulators
-                'e', // for e.returnvalue
-                'ctx', // for Koa routing
-                'context', // for Koa routing
-                'req', // for Express requests
-                'request', // for Express requests
-                'res', // for Express responses
-                'response', // for Express responses
-                '$scope', // for Angular 1 scopes
-                'staticContext', // for ReactRouter context
-            ]
-        }],
+        /*
+            This rule disallows assigning to function parameters; function parameters are
+            treated as const bindings. Some more readable or type-safe alternatives to
+            parameter assignment are:
+            - use default parameters
+            - assign to a new variable with a stricter type and descriptive name
+         */
+        'no-param-reassign': ['error', { props: false }],
 
         // disallow usage of __proto__ property
         // https://eslint.org/docs/rules/no-proto
@@ -303,9 +294,11 @@ module.exports = {
         // https://eslint.org/docs/rules/no-return-assign
         'no-return-assign': ['error', 'always'],
 
-        // disallow redundant `return await`
-        // https://eslint.org/docs/rules/no-return-await
-        'no-return-await': 'error',
+        /*
+            This rule is deprecated since ESLint 8.46.0 because returning an awaited value no longer generates an extra microtask.
+            https://eslint.org/docs/latest/rules/no-return-await
+        */
+        'no-return-await': 'off',
 
         // disallow use of `javascript:` urls.
         // https://eslint.org/docs/rules/no-script-url
@@ -365,9 +358,13 @@ module.exports = {
         // https://eslint.org/docs/rules/no-useless-return
         'no-useless-return': 'error',
 
-        // disallow use of void operator
-        // https://eslint.org/docs/rules/no-void
-        'no-void': 'error',
+        /*
+            'void' shouldn't be used to get an 'undefined' value, but can be used to
+            explicitly mark a promise as intentionally not awaited. This aligns with
+            the '@typescript-eslint/no-floating-promises' rule configuration.
+            https://eslint.org/docs/rules/no-void
+        */
+        'no-void': ['error', { allowAsStatement: true }],
 
         // disallow usage of configurable warning terms in comments: e.g. todo
         // https://eslint.org/docs/rules/no-warning-comments
@@ -390,10 +387,11 @@ module.exports = {
         // TODO: semver-major: enable thus rule, once eslint v8.5.0 is required
         'prefer-object-has-own': 'off',
 
-        // https://eslint.org/docs/rules/prefer-regex-literals
-        'prefer-regex-literals': ['error', {
-            disallowRedundantWrapping: true,
-        }],
+        /*
+            For consistency, when we create regular expressions we should use the literal syntax rather than the RexExp() constructor.
+            https://eslint.org/docs/rules/prefer-regex-literals
+        */
+        'prefer-regex-literals': 'error',
 
         // require use of the second argument for parseInt()
         // https://eslint.org/docs/rules/radix
