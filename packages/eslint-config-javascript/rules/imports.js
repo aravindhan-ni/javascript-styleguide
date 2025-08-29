@@ -135,12 +135,14 @@ module.exports = {
         // https://github.com/import-js/eslint-plugin-import/blob/master/docs/rules/no-namespace.md
         'import/no-namespace': 'off',
 
-        // Ensure consistent use of file extension within the import path
+        // Enforce no file extensions in imports (except packages)
         // https://github.com/import-js/eslint-plugin-import/blob/master/docs/rules/extensions.md
         'import/extensions': ['error', 'ignorePackages', {
             js: 'never',
             mjs: 'never',
             jsx: 'never',
+            ts: 'never',
+            tsx: 'never'
         }],
 
         // ensure absolute imports are above relative imports and that unassigned imports are ignored
@@ -152,9 +154,9 @@ module.exports = {
         // https://github.com/import-js/eslint-plugin-import/blob/master/docs/rules/newline-after-import.md
         'import/newline-after-import': 'error',
 
-        // Require modules with a single export to use a default export
+        // Default exports found counterintuitive; prefer named exports (see no-default-export)
         // https://github.com/import-js/eslint-plugin-import/blob/master/docs/rules/prefer-default-export.md
-        'import/prefer-default-export': 'error',
+        'import/prefer-default-export': 'off',
 
         // Restrict which files can be imported in a given folder
         // https://github.com/import-js/eslint-plugin-import/blob/master/docs/rules/no-restricted-paths.md
@@ -220,9 +222,9 @@ module.exports = {
         // https://github.com/import-js/eslint-plugin-import/blob/44a038c06487964394b1e15b64f3bd34e5d40cde/docs/rules/group-exports.md
         'import/group-exports': 'off',
 
-        // forbid default exports. this is a terrible rule, do not use it.
+        // Prefer named exports over default for consistency and easier refactoring
         // https://github.com/import-js/eslint-plugin-import/blob/44a038c06487964394b1e15b64f3bd34e5d40cde/docs/rules/no-default-export.md
-        'import/no-default-export': 'off',
+        'import/no-default-export': 'error',
 
         // Prohibit named exports. this is a terrible rule, do not use it.
         // https://github.com/import-js/eslint-plugin-import/blob/1ec80fa35fa1819e2d35a70e68fb6a149fb57c5e/docs/rules/no-named-export.md
@@ -236,9 +238,15 @@ module.exports = {
         // https://github.com/import-js/eslint-plugin-import/blob/d81f48a2506182738409805f5272eff4d77c9348/docs/rules/no-cycle.md
         'import/no-cycle': ['error', { maxDepth: '∞' }],
 
-        // Ensures that there are no useless path segments
+        // Enforce shorter, consistent paths; avoid redundant segments and index files.
         // https://github.com/import-js/eslint-plugin-import/blob/ebafcbf59ec9f653b2ac2a0156ca3bcba0a7cf57/docs/rules/no-useless-path-segments.md
-        'import/no-useless-path-segments': ['error', { commonjs: true }],
+        'import/no-useless-path-segments': [
+            'error',
+            {
+                noUselessIndex: true,
+                commonjs: true
+            }
+        ],
 
         // dynamic imports require a leading comment with a webpackChunkName
         // https://github.com/import-js/eslint-plugin-import/blob/ebafcbf59ec9f653b2ac2a0156ca3bcba0a7cf57/docs/rules/dynamic-import-chunkname.md
@@ -260,11 +268,9 @@ module.exports = {
             unusedExports: true,
         }],
 
-        // Reports the use of import declarations with CommonJS exports in any module except for the main module.
+        // This prevents files from mixing CommonJS exports with ES module imports.
         // https://github.com/import-js/eslint-plugin-import/blob/1012eb951767279ce3b540a4ec4f29236104bb5b/docs/rules/no-import-module-exports.md
-        'import/no-import-module-exports': ['error', {
-            exceptions: [],
-        }],
+        'import/no-import-module-exports': 'error',
 
         // Use this rule to prevent importing packages through relative paths.
         // https://github.com/import-js/eslint-plugin-import/blob/1012eb951767279ce3b540a4ec4f29236104bb5b/docs/rules/no-relative-packages.md

@@ -12,20 +12,16 @@ module.exports = {
     },
 
     rules: {
-        // enforces no braces where they can be omitted
-        // https://eslint.org/docs/rules/arrow-body-style
         /*
-                Developers should consider readability, and no braces may be preferred when unnecessary. However, this rule
-                is disabled, because it enforces no braces to an extent that developers must construct unintuitive formats
-                that are reasonably satisfied with braces.
+            Developers should consider readability, and no braces may be preferred when unnecessary. However, this rule
+            is disabled, because it enforces no braces to an extent that developers must construct unintuitive formats
+            that are reasonably satisfied with braces.
         */
+        // https://eslint.org/docs/rules/arrow-body-style
         'arrow-body-style': 'off',
 
-        // require parens in arrow function arguments
+        //  Omit arrow function parenthesis where they are not required to improve readability.
         // https://eslint.org/docs/rules/arrow-parens
-        /*
-                Omit arrow function parenthesis where they are not required to improve readability.
-        */
         'arrow-parens': ['error', 'as-needed'],
 
         // require space before/after arrow function's arrow

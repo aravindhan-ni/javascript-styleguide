@@ -17,8 +17,8 @@ module.exports = {
         // https://eslint.org/docs/rules/block-spacing
         'block-spacing': ['error', 'always'],
 
-        // enforce one true brace style
-        'brace-style': ['error', '1tbs', { allowSingleLine: true }],
+        // enforce one false brace style
+        'brace-style': ['error', '1tbs', { allowSingleLine: false }],
 
         // require camel case names
         camelcase: ['error', { properties: 'never', ignoreDestructuring: false }],
@@ -38,14 +38,11 @@ module.exports = {
             },
         }],
 
-        // require trailing commas in multiline object literals
-        'comma-dangle': ['error', {
-            arrays: 'always-multiline',
-            objects: 'always-multiline',
-            imports: 'always-multiline',
-            exports: 'always-multiline',
-            functions: 'always-multiline',
-        }],
+        /*
+            This rule is controversial and is defined such that trailing commas are not required but
+            may be used if preferred.
+        */
+        'comma-dangle': ['error', 'only-multiline'],
 
         // enforce spacing before and after comma
         'comma-spacing': ['error', { before: false, after: true }],
@@ -73,8 +70,8 @@ module.exports = {
         // enforces consistent naming when capturing the current execution context
         'consistent-this': 'off',
 
-        // enforce newline at the end of file, with no multiple empty lines
-        'eol-last': ['error', 'always'],
+        // Newline at EOF not required
+        'eol-last': 'off',
 
         // https://eslint.org/docs/rules/function-call-argument-newline
         'function-call-argument-newline': ['error', 'consistent'],
@@ -91,9 +88,9 @@ module.exports = {
             considerPropertyDescriptor: true,
         }],
 
-        // require function expressions to have a name
+        // Allow unnamed functions, except legacy IIFEs
         // https://eslint.org/docs/rules/func-names
-        'func-names': 'warn',
+        'func-names': ['error', 'as-needed'],
 
         // enforces use of function declarations or expressions
         // https://eslint.org/docs/rules/func-style

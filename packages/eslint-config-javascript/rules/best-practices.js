@@ -16,19 +16,17 @@ module.exports = {
         // https://eslint.org/docs/rules/complexity
         complexity: ['off', 20],
 
-        // enforce that class methods use "this"
+        // Allow instance methods even if `this` isn’t used
         // https://eslint.org/docs/rules/class-methods-use-this
-        'class-methods-use-this': ['error', {
-            exceptMethods: [],
-        }],
+        'class-methods-use-this': 'off',
 
         // require return statements to either always or never specify values
         // https://eslint.org/docs/rules/consistent-return
         'consistent-return': 'error',
 
-        // specify curly brace conventions for all control statements
+        // Require curly braces {} for all blocks (e.g. if, else, while).
         // https://eslint.org/docs/rules/curly
-        curly: ['error', 'multi-line'], // multiline
+        curly: ['error', 'all'],
 
         // require default case in switch statements
         // https://eslint.org/docs/rules/default-case
