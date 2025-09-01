@@ -71,7 +71,6 @@ module.exports = {
 
         /*
             Disallow duplicate conditions in if-else-if chain.
-            This rule does not need to be explicitly set after enabled in airbnb:
             https://eslint.org/docs/rules/no-dupe-else-if
         */
         'no-dupe-else-if': 'error',
@@ -131,7 +130,6 @@ module.exports = {
 
         /*
             Disallow assigning to imported bindings.
-            This rule does not need to be explicitly set after enabled in airbnb:
             https://eslint.org/docs/rules/no-import-assign
         */
         'no-import-assign': 'error',
@@ -194,7 +192,6 @@ module.exports = {
 
         /*
             Disallow returning values from setters.
-            This rule does not need to be explicitly set after enabled in airbnb:
             https://eslint.org/docs/rules/no-setter-return
         */
         'no-setter-return': 'error',
