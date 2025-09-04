@@ -1,7 +1,10 @@
 module.exports = {
     extends: '@ni/eslint-config-javascript',
     root: true,
+    plugins: [
+        '@stylistic'
+    ],
     rules: {
-        'import/no-default-export': 'error'
+        '@typescript-eslint/no-var-requires': 'off'
     },
 };

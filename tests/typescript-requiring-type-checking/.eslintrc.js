@@ -3,6 +3,9 @@ module.exports = {
         '@ni/eslint-config-typescript',
         '@ni/eslint-config-typescript/requiring-type-checking'
     ],
+    plugins: [
+        '@stylistic'
+    ],
     ignorePatterns: ['*.js'],
     parserOptions: {
         project: ['./tsconfig.json'],
