@@ -1,6 +1,14 @@
 module.exports = {
-    extends: '@ni/eslint-config-javascript',
+    extends: [
+        'eslint:recommended',
+        'plugin:@typescript-eslint/recommended',
+        'plugin:@stylistic/disable-legacy',
+        '@ni/eslint-config-javascript'
+    ],
+    plugins: [
+        '@stylistic'
+    ],
     rules: {
-        'import/no-default-export': 'error'
+        '@typescript-eslint/no-var-requires': 'off'
     }
 };
