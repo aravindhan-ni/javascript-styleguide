@@ -12,28 +12,22 @@ module.exports = {
               JavaScript / NI configuration.
         */
 
-        'brace-style': 'off',
         '@stylistic/brace-style': ['error', '1tbs', { allowSingleLine: false }],
 
-        'comma-dangle': 'off',
         '@stylistic/comma-dangle': ['error', 'only-multiline'],
 
-        'comma-spacing': 'off',
         '@stylistic/comma-spacing': ['error', { before: false, after: true }],
 
         'default-param-last': 'off',
         '@typescript-eslint/default-param-last': 'off',
 
-        'func-call-spacing': 'off',
         '@stylistic/func-call-spacing': ['error', 'never'],
 
-        indent: 'off',
         '@stylistic/indent': ['error', 4],
 
         'init-declarations': 'off',
         '@typescript-eslint/init-declarations': 'off',
 
-        'keyword-spacing': 'off',
         '@stylistic/keyword-spacing': ['error', {
             before: true,
             after: true,
@@ -44,7 +38,6 @@ module.exports = {
             }
         }],
 
-        'lines-between-class-members': 'off',
         '@stylistic/lines-between-class-members': ['error', 'always', { exceptAfterSingleLine: true }],
 
         'no-array-constructor': 'off',
@@ -65,7 +58,6 @@ module.exports = {
             ]
         }],
 
-        'no-extra-parens': 'off',
         '@stylistic/no-extra-parens': ['off', 'all', {
             conditionalAssign: true,
             nestedBinaryExpressions: false,
@@ -74,7 +66,6 @@ module.exports = {
             enforceForArrowConditionals: false,
         }],
 
-        'no-extra-semi': 'off',
         '@stylistic/no-extra-semi': 'error',
 
         'no-invalid-this': 'off',
@@ -116,23 +107,18 @@ module.exports = {
         'no-useless-constructor': 'off',
         '@typescript-eslint/no-useless-constructor': 'error',
 
-        'object-curly-spacing': 'off',
         '@stylistic/object-curly-spacing': ['error', 'always'],
 
-        quotes: 'off',
         '@stylistic/quotes': ['error', 'single', { avoidEscape: true }],
 
-        semi: 'off',
         '@stylistic/semi': ['error', 'always'],
 
-        'space-before-function-paren': 'off',
         '@stylistic/space-before-function-paren': ['error', {
             anonymous: 'always',
             named: 'never',
             asyncArrow: 'always'
         }],
 
-        'space-infix-ops': 'off',
         '@stylistic/space-infix-ops': 'error',
     }
 };
