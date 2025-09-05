@@ -1,8 +1,5 @@
 module.exports = {
     extends: [
-        'eslint:recommended',
-        'plugin:@typescript-eslint/recommended',
-        'plugin:@stylistic/disable-legacy',
         '@ni/eslint-config-javascript'
     ],
     plugins: [
