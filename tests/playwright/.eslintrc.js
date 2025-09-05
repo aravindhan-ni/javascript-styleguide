@@ -1,9 +1,6 @@
 module.exports = {
     extends: '@ni/eslint-config-playwright',
     root: true,
-    plugins: [
-        '@stylistic'
-    ],
     overrides: [
         {
             files: [

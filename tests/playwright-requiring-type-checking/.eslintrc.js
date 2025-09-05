@@ -1,7 +1,4 @@
 module.exports = {
-    plugins: [
-        '@stylistic'
-    ],
     extends: [
         '@ni/eslint-config-playwright',
         '@ni/eslint-config-playwright/requiring-type-checking'

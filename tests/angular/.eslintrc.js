@@ -2,9 +2,6 @@
 module.exports = {
     ignorePatterns: ['*.js'],
     overrides: [{
-        plugins: [
-            '@stylistic'
-        ],
         extends: [
             '@ni/eslint-config-angular',
             '@ni/eslint-config-angular/requiring-type-checking'

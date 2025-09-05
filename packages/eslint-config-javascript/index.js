@@ -9,6 +9,9 @@ module.exports = {
         './rules/imports',
         './rules/strict',
     ].map(require.resolve),
+    plugins: [
+        '@stylistic'
+    ],
     parserOptions: {
         ecmaVersion: 2018,
         sourceType: 'module',
