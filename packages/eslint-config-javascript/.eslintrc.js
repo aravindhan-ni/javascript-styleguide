@@ -1,6 +1,5 @@
 module.exports = {
     extends: [
-        'plugin:@stylistic/disable-legacy',
         '@ni/eslint-config-javascript'
     ],
     rules: {

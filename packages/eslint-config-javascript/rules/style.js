@@ -475,7 +475,7 @@ module.exports = {
         /*
             disallow use of the Object constructor
         */
-        'no-new-object': 'error',
+        'no-object-constructor': 'error',
 
         /*
             Prefer the '+=' operator. Allow unary operators in for loops, because it is a common
