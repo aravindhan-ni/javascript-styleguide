@@ -1,6 +1,8 @@
 module.exports = {
-    extends: '@ni/eslint-config-javascript',
+    extends: [
+        '@ni/eslint-config-javascript'
+    ],
     rules: {
-        'import/no-default-export': 'error'
+        '@typescript-eslint/no-var-requires': 'off'
     }
 };
